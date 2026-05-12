@@ -1,0 +1,41 @@
+{
+  "name": "Noise Traders Orchestrator",
+  "description": "Noise Traders platformunda çalışan ERC-8004 uyumlu AI Agent. Noise trading, market sentiment analysis, chaotic market automation ve multi-strategy management yapan akıllı orchestrator.",
+  "version": "1.0.0",
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "image": "https://noise-tradersss.vercel.app/logo.png",
+  "wallets": {
+    "base": "0x29536D0bc1004ab274c4F0F59734Ad74D4559b7B"
+  },
+  "services": [
+    {
+      "name": "A2A",
+      "endpoint": "https://noise-tradersss.vercel.app/.well-known/agent-card.json",
+      "version": "1.0.0",
+      "description": "Agent-to-Agent communication"
+    },
+    {
+      "name": "MCP",
+      "endpoint": "https://noise-tradersss.vercel.app/api/mcp",
+      "version": "1.0.0",
+      "description": "Model Context Protocol - Active command execution"
+    },
+    {
+      "name": "API",
+      "endpoint": "https://noise-tradersss.vercel.app/api/agent",
+      "version": "1.0.0",
+      "description": "Main agent control API"
+    }
+  ],
+  "capabilities": [
+    "noise-trading",
+    "market-sentiment-analysis",
+    "chaotic-market-automation",
+    "multi-strategy-management",
+    "high-frequency-operations",
+    "mcp-command-execution"
+  ],
+  "supportedChains": ["eip155:8453"],
+  "active": true,
+  "status": "online"
+}
