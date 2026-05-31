@@ -27,28 +27,51 @@ export async function POST(req: Request) {
         // MCP standard logic & tools listed as requested
         if (method === 'tools/list') {
             return NextResponse.json({
-                tools: [
-                    { name: 'get_race_status', description: '[PLACEHOLDER] Get current race status' },
-                    { name: 'start_race', description: '[PLACEHOLDER] Start a new race' },
-                    { name: 'get_leaderboard', description: '[PLACEHOLDER] Get current leaderboard' },
-                    { name: 'optimize_speed', description: '[PLACEHOLDER] Optimize speed parameters' },
-                    { name: 'get_track_info', description: '[PLACEHOLDER] Get track information' }
-                ]
+                jsonrpc: "2.0",
+                id: body.id,
+                result: {
+                    tools: [
+                        { name: 'get_race_status', description: '[PLACEHOLDER] Get current race status', inputSchema: { type: "object", properties: {} } },
+                        { name: 'start_race', description: '[PLACEHOLDER] Start a new race', inputSchema: { type: "object", properties: {} } },
+                        { name: 'get_leaderboard', description: '[PLACEHOLDER] Get current leaderboard', inputSchema: { type: "object", properties: {} } },
+                        { name: 'optimize_speed', description: '[PLACEHOLDER] Optimize speed parameters', inputSchema: { type: "object", properties: {} } },
+                        { name: 'get_track_info', description: '[PLACEHOLDER] Get track information', inputSchema: { type: "object", properties: {} } }
+                    ]
+                }
             }, { headers: getCorsHeaders() });
         }
 
         if (method === 'tools/call') {
             return NextResponse.json({
-                result: `[PLACEHOLDER] Execution result for ${body.params?.name}`
+                jsonrpc: "2.0",
+                id: body.id,
+                result: {
+                    content: [
+                        { type: "text", text: `[PLACEHOLDER] Execution result for ${body.params?.name}` }
+                    ]
+                }
             }, { headers: getCorsHeaders() });
         }
 
         if (method === 'prompts/list') {
-            return NextResponse.json({ prompts: [] }, { headers: getCorsHeaders() });
+            return NextResponse.json({ jsonrpc: "2.0", id: body.id, result: { prompts: [] } }, { headers: getCorsHeaders() });
         }
 
         if (method === 'resources/list') {
-            return NextResponse.json({ resources: [] }, { headers: getCorsHeaders() });
+            return NextResponse.json({ jsonrpc: "2.0", id: body.id, result: { resources: [] } }, { headers: getCorsHeaders() });
+        }
+
+        // Generic fallback for initialization
+        if (method === 'initialize') {
+            return NextResponse.json({
+                jsonrpc: "2.0",
+                id: body.id,
+                result: {
+                    protocolVersion: "2024-11-05",
+                    capabilities: { tools: {}, resources: {}, prompts: {} },
+                    serverInfo: { name: "Noise Traders Orchestrator", version: "1.0.0" }
+                }
+            }, { headers: getCorsHeaders() });
         }
 
         return NextResponse.json({

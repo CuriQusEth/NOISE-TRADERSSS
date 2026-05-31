@@ -48,33 +48,56 @@ async function startServer() {
       const body = req.body;
       const method = body.method;
 
+      if (method === 'initialize') {
+        res.json({
+            jsonrpc: "2.0",
+            id: body.id,
+            result: {
+                protocolVersion: "2024-11-05",
+                capabilities: { tools: {}, resources: {}, prompts: {} },
+                serverInfo: { name: "Noise Traders Orchestrator", version: "1.0.0" }
+            }
+        });
+        return;
+      }
+
       if (method === 'tools/list') {
         res.json({
-            tools: [
-                { name: 'get_race_status', description: '[PLACEHOLDER] Get current race status' },
-                { name: 'start_race', description: '[PLACEHOLDER] Start a new race' },
-                { name: 'get_leaderboard', description: '[PLACEHOLDER] Get current leaderboard' },
-                { name: 'optimize_speed', description: '[PLACEHOLDER] Optimize speed parameters' },
-                { name: 'get_track_info', description: '[PLACEHOLDER] Get track information' }
-            ]
+            jsonrpc: "2.0",
+            id: body.id,
+            result: {
+                tools: [
+                    { name: 'get_race_status', description: '[PLACEHOLDER] Get current race status', inputSchema: { type: "object", properties: {} } },
+                    { name: 'start_race', description: '[PLACEHOLDER] Start a new race', inputSchema: { type: "object", properties: {} } },
+                    { name: 'get_leaderboard', description: '[PLACEHOLDER] Get current leaderboard', inputSchema: { type: "object", properties: {} } },
+                    { name: 'optimize_speed', description: '[PLACEHOLDER] Optimize speed parameters', inputSchema: { type: "object", properties: {} } },
+                    { name: 'get_track_info', description: '[PLACEHOLDER] Get track information', inputSchema: { type: "object", properties: {} } }
+                ]
+            }
         });
         return;
       }
 
       if (method === 'tools/call') {
         res.json({
-            result: `[PLACEHOLDER] Execution result for ${body.params?.name}`
+            jsonrpc: "2.0",
+            id: body.id,
+            result: {
+                content: [
+                    { type: "text", text: `[PLACEHOLDER] Execution result for ${body.params?.name}` }
+                ]
+            }
         });
         return;
       }
 
       if (method === 'prompts/list') {
-        res.json({ prompts: [] });
+        res.json({ jsonrpc: "2.0", id: body.id, result: { prompts: [] } });
         return;
       }
 
       if (method === 'resources/list') {
-        res.json({ resources: [] });
+        res.json({ jsonrpc: "2.0", id: body.id, result: { resources: [] } });
         return;
       }
 
