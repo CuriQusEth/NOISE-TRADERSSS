@@ -9,15 +9,36 @@ async function startServer() {
   // Add body parsing middleware
   app.use(express.json());
 
+  // Add basic CORS middleware
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    
+    // Handle OPTIONS method
+    if (req.method === 'OPTIONS') {
+      res.sendStatus(200);
+      return;
+    }
+    next();
+  });
+
   // MCP API Route
   app.get("/api/mcp", (req, res) => {
     res.json({
       protocol: "MCP",
       version: "1.0.0",
-      name: "Noise Traders MCP Endpoint",
+      name: "Noise Traders Orchestrator",
       status: "active",
       description: "Active MCP server for Noise Traders Orchestrator Agent",
-      capabilities: ["noise-trading", "market-sentiment-analysis", "chaotic-market-automation"],
+      capabilities: [
+        "noise-trading",
+        "market-sentiment-analysis",
+        "chaotic-market-automation",
+        "multi-strategy-management",
+        "high-frequency-operations",
+        "mcp-command-execution"
+      ],
       timestamp: new Date().toISOString()
     });
   });
@@ -25,6 +46,38 @@ async function startServer() {
   app.post("/api/mcp", (req, res) => {
     try {
       const body = req.body;
+      const method = body.method;
+
+      if (method === 'tools/list') {
+        res.json({
+            tools: [
+                { name: 'get_race_status', description: '[PLACEHOLDER] Get current race status' },
+                { name: 'start_race', description: '[PLACEHOLDER] Start a new race' },
+                { name: 'get_leaderboard', description: '[PLACEHOLDER] Get current leaderboard' },
+                { name: 'optimize_speed', description: '[PLACEHOLDER] Optimize speed parameters' },
+                { name: 'get_track_info', description: '[PLACEHOLDER] Get track information' }
+            ]
+        });
+        return;
+      }
+
+      if (method === 'tools/call') {
+        res.json({
+            result: `[PLACEHOLDER] Execution result for ${body.params?.name}`
+        });
+        return;
+      }
+
+      if (method === 'prompts/list') {
+        res.json({ prompts: [] });
+        return;
+      }
+
+      if (method === 'resources/list') {
+        res.json({ resources: [] });
+        return;
+      }
+
       res.json({
         status: "success",
         message: "MCP command received",
@@ -46,6 +99,19 @@ async function startServer() {
       platform: "Noise Traders",
       version: "1.0.0"
     });
+  });
+
+  app.post("/api/agent", (req, res) => {
+    try {
+      res.json({
+        status: "success",
+        message: "Agent contacted",
+        receivedAt: new Date().toISOString(),
+        payload: req.body
+      });
+    } catch (error) {
+      res.status(400).json({ error: "Invalid request" });
+    }
   });
 
   // Vite middleware for development
