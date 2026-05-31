@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     return NextResponse.json({
         protocol: "MCP",
@@ -21,7 +23,14 @@ export async function GET() {
 
 export async function POST(req: Request) {
     try {
-        const body = await req.json();
+        let body;
+        try {
+            const text = await req.text();
+            body = text ? JSON.parse(text) : {};
+        } catch {
+            body = {};
+        }
+
         const method = body.method;
 
         // MCP standard logic & tools listed as requested
@@ -88,13 +97,14 @@ export async function POST(req: Request) {
 }
 
 export async function OPTIONS() {
-    return NextResponse.json({}, { headers: getCorsHeaders() });
+    return NextResponse.json({}, { status: 200, headers: getCorsHeaders() });
 }
 
 function getCorsHeaders() {
     return {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, DELETE',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Max-Age': '86400',
     };
 }

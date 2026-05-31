@@ -1,5 +1,16 @@
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
+function getCorsHeaders() {
+    return {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, DELETE',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Max-Age': '86400',
+    };
+}
+
 export async function GET() {
     return NextResponse.json({
         name: "Noise Traders Orchestrator",
@@ -8,40 +19,36 @@ export async function GET() {
         platform: "Noise Traders",
         version: "1.0.0"
     }, {
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-        }
+        headers: getCorsHeaders()
     });
 }
 
 export async function POST(req: Request) {
     try {
-        const body = await req.json();
+        let body = {};
+        try {
+            const text = await req.text();
+            body = text ? JSON.parse(text) : {};
+        } catch {
+            // body is empty object
+        }
+
         return NextResponse.json({
             status: "success",
             message: "Agent contacted",
             receivedAt: new Date().toISOString(),
             payload: body
         }, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-            }
+            headers: getCorsHeaders()
         });
     } catch (error) {
-        return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+        return NextResponse.json({ error: "Invalid request" }, { status: 400, headers: getCorsHeaders() });
     }
 }
 
 export async function OPTIONS() {
     return NextResponse.json({}, {
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-        }
+        status: 200,
+        headers: getCorsHeaders()
     });
 }
