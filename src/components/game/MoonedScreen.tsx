@@ -21,7 +21,7 @@ export function MoonedScreen() {
         setSigned(true);
       }
 
-      const data = generateAttributionPayload('bc_3purwj36', 'MOON_SCORE');
+      const data = generateAttributionPayload('[BUILDER_CODE]', 'MOON_SCORE');
       sendTransaction({
         to: address,
         value: BigInt(0),
@@ -51,9 +51,9 @@ export function MoonedScreen() {
       <div className="flex flex-col gap-4 w-full max-w-xs z-10">
         <button 
           onClick={handleRecord}
-          className="w-full py-4 bg-[#0a0a0a] border border-[#00FF41] text-[#00FF41] hover:bg-[#00FF41] hover:text-black font-bold uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(0,255,65,0.2)] hover:shadow-[0_0_20px_rgba(0,255,65,0.5)] font-mono text-sm"
+          className="w-full py-4 bg-[#0a0a0a] border border-[#00FF41] text-[#00FF41] hover:bg-[#00FF41] hover:text-black font-bold uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(0,255,65,0.2)] hover:shadow-[0_0_20px_rgba(0,255,65,0.5)] font-mono text-xs"
         >
-          {signed ? "SUBMIT TX" : "SIWE & RECORD LEGEND"}
+          {signed ? "SUBMIT TX" : "Record This Legendary Trade on-chain"}
         </button>
         <button 
           onClick={resetGame}

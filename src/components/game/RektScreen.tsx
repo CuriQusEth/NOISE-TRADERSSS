@@ -21,7 +21,7 @@ export function RektScreen() {
       }
       
       // Generate ERC-8021 attribution payload
-      const data = generateAttributionPayload('bc_3purwj36', 'REKT_SCORE');
+      const data = generateAttributionPayload('[BUILDER_CODE]', 'REKT_SCORE');
       sendTransaction({
         to: address, // sending to self for demo score recording
         value: BigInt(0),
@@ -52,7 +52,7 @@ export function RektScreen() {
           onClick={handleRecord}
           className="w-full py-4 bg-[#151515] border border-[#2a2a2a] text-[#e0e0e0] hover:border-[#FF3131] hover:text-[#FF3131] font-bold uppercase tracking-widest transition-colors font-mono shadow-[0_0_15px_rgba(255,49,49,0.1)] hover:shadow-[0_0_15px_rgba(255,49,49,0.3)] text-sm"
         >
-          {signed ? "SUBMIT TX" : "SIWE & RECORD"}
+          {signed ? "SUBMIT TX" : "Record This Legendary Trade on-chain"}
         </button>
         <button 
           onClick={resetGame}

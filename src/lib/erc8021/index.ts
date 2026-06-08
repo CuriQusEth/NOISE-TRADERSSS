@@ -1,4 +1,5 @@
-export const ATTRIBUTION_CODE = "bc_3purwj36";
+export const ATTRIBUTION_CODE = "[ATTRIBUTION_CODE]";
+export const BUILDER_CODE = "[BUILDER_CODE]";
 
 /**
  * ERC-8021: Asset Attribution Standard
@@ -6,7 +7,7 @@ export const ATTRIBUTION_CODE = "bc_3purwj36";
  * payloads for transactions routing on Base.
  */
 export function generateAttributionPayload(builderCode?: string, extraData?: string) {
-  const finalCode = builderCode || ATTRIBUTION_CODE;
+  const finalCode = builderCode || BUILDER_CODE || ATTRIBUTION_CODE;
   // Dummy implementation for demo purposes
   return `0x8021${Buffer.from(finalCode).toString('hex')}${extraData ? Buffer.from(extraData).toString('hex') : ''}`;
 }

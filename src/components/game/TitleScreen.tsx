@@ -1,24 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useGame } from './GameContext';
-import { useAccount, useConnect, useDisconnect, useSendTransaction } from 'wagmi';
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
 
 export function TitleScreen() {
   const { setScreen } = useGame();
   const { address, isConnected } = useAccount();
   const { connectors, connect } = useConnect();
   const { disconnect } = useDisconnect();
-  const { sendTransaction } = useSendTransaction();
-
-  const handleGM = () => {
-    // In a real app we would send an actual transaction, e.g., to a contract
-    // We'll simulate by calling sendTransaction with 0 value to self
-    sendTransaction({
-      to: address,
-      value: BigInt(0),
-      data: '0x474d', // 'GM' in hex or similar payload
-    });
-  };
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full relative overflow-hidden p-4">
@@ -84,12 +73,6 @@ export function TitleScreen() {
               className="w-full py-4 bg-[#00FF41] text-black font-bold uppercase border-b-4 border-green-800 active:translate-y-1 active:border-b-0 transition-all font-mono"
             >
               Enter Market
-            </button>
-            <button
-              onClick={handleGM}
-              className="w-full py-3 bg-[#151515] border border-[#2a2a2a] text-[#e0e0e0] hover:border-[#00FF41] text-sm uppercase font-mono"
-            >
-              Say GM (On-chain)
             </button>
             <button
               onClick={() => disconnect()}
