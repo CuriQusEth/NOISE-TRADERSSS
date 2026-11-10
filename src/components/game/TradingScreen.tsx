@@ -100,10 +100,15 @@ export function TradingScreen() {
 
       {/* Bottom Console */}
       <footer className="mt-auto h-12 bg-[#0a0a0a] border-t border-[#2a2a2a] flex items-center px-4 justify-between shrink-0">
-        <div className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">
-          Network: <span className="text-[#e0e0e0]">Base</span>
+        <div className="text-[10px] text-gray-500 uppercase font-bold tracking-widest flex items-center gap-2">
+          <span>Network: <span className="text-[#00FF41]">Base Mainnet (Denim)</span></span>
+          <span className="text-[#2a2a2a]">|</span>
+          <span className="text-gray-400">200ms Canonical Blocks</span>
         </div>
-        <div className="w-2 h-2 rounded-full bg-[#00FF41] border border-[#050505] shadow-[0_0_5px_#00FF41]"></div>
+        <div className="flex items-center gap-2">
+          <span className="text-[9px] text-[#00FF41] font-mono tracking-wider">DENIM ACTIVE</span>
+          <div className="w-2 h-2 rounded-full bg-[#00FF41] border border-[#050505] shadow-[0_0_8px_#00FF41] animate-pulse"></div>
+        </div>
       </footer>
       
     </motion.div>

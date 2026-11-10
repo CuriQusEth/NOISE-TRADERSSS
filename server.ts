@@ -31,6 +31,9 @@ async function startServer() {
       name: "Noise Traders Orchestrator",
       status: "active",
       description: "Active MCP server for Noise Traders Orchestrator Agent",
+      network: "Base Mainnet (Denim Upgrade)",
+      block_cadence: "200ms",
+      chain_id: 8453,
       capabilities: [
         "noise-trading",
         "market-sentiment-analysis",
@@ -120,6 +123,9 @@ async function startServer() {
       status: "active",
       wallet: "0x29536D0bc1004ab274c4F0F59734Ad74D4559b7B",
       platform: "Noise Traders",
+      network: "Base Mainnet (Denim Upgrade)",
+      chain_id: 8453,
+      block_cadence: "200ms",
       version: "1.0.0"
     });
   });

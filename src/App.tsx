@@ -39,10 +39,28 @@ function GmButton() {
   );
 }
 
+function DenimNetworkBanner() {
+  return (
+    <div className="fixed top-4 left-4 z-50 flex items-center gap-2 bg-[#0a0a0a]/90 backdrop-blur border border-[#0052FF]/40 px-3 py-1.5 rounded text-xs font-mono select-none shadow-[0_0_12px_rgba(0,82,255,0.2)]">
+      <span className="relative flex h-2 w-2">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FF41] opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00FF41]"></span>
+      </span>
+      <span className="text-[#0052FF] font-bold">BASE</span>
+      <span className="text-gray-500">|</span>
+      <span className="text-gray-200 font-semibold tracking-wide">MAINNET [DENIM]</span>
+      <span className="text-[10px] text-[#00FF41] bg-[#00FF41]/15 px-1.5 py-0.5 rounded border border-[#00FF41]/30 font-bold">
+        200ms
+      </span>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
+        <DenimNetworkBanner />
         <GmButton />
         <GameApp />
       </QueryClientProvider>

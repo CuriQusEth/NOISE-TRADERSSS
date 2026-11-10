@@ -44,11 +44,17 @@ export function TitleScreen() {
         transition={{ type: "spring", bounce: 0.5 }}
         className="z-10 flex flex-col items-center z-10"
       >
-        <h1 className="bg-[#BC13FE] text-black px-6 py-2 font-black text-6xl md:text-8xl italic skew-x-[-12deg] tracking-tighter mb-6 text-center">
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0052FF]/10 border border-[#0052FF]/30 rounded-full mb-3">
+          <span className="w-2 h-2 rounded-full bg-[#00FF41] animate-ping" />
+          <span className="text-[11px] font-mono font-bold text-[#00FF41] tracking-wider uppercase">
+            Base Mainnet • Denim (200ms Blocks)
+          </span>
+        </div>
+        <h1 className="bg-[#BC13FE] text-black px-6 py-2 font-black text-6xl md:text-8xl italic skew-x-[-12deg] tracking-tighter mb-4 text-center">
           NOISE<br/>TRADERS
         </h1>
-        <p className="text-sm md:text-base text-gray-400 uppercase tracking-widest mb-12 text-center">
-          Survive the Base Mainnet Chaos
+        <p className="text-sm md:text-base text-gray-400 uppercase tracking-widest mb-10 text-center">
+          Survive the Base Mainnet Chaos • 200ms Native Block Speed
         </p>
 
         {!isConnected ? (
